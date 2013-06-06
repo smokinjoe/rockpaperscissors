@@ -173,7 +173,7 @@
         $("#results-body").append(_return_string);
       }
 
-      console.log(_stuyguys);
+      //console.log(_stuyguys);
     });
 
   </script>
