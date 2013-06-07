@@ -8,6 +8,12 @@ $("#roll-all-at-once").click( function () {
 
   var _num_rounds = ($("#number-of-rounds").val() === "1 Round") ? 1 : $("#number-of-rounds").val();
 
+  if (_num_rounds > 200) {
+    alert("Sorry, that's asking too much of our Warriors.");
+    $('#clear').triggerHandler('click');
+    return false;
+  }
+
   function doBattle (_opp1, _opp2) {
     var _actions = ['rock','paper','scissors'];
     var record = {
