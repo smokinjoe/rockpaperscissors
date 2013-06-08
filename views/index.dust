@@ -7,27 +7,30 @@
 </head>
 <body>
 
-  <div class="input-append">
-    <input id="number-of-rounds" type="text" placeholder="1 Round">
-    <button class="btn" id="roll-all-at-once" type="button">Battle</button>
-    <button class="btn btn-danger" id="clear" type="button">clear</button>
-  </div>
+  <div class="container">
+    <h2>Rock Paper Scissors</h2>
 
-  <br><br>
-  <table class="table table-striped table-bordered table-hover">
-    <caption>Results Table</caption>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Wins</th>
-        <th>Losses</th>
-        <th>Draws</th>
-        <th>Games</th>
-      </tr>
-    </thead>
-    <tbody id="results-body">
-    </tbody>
-  </table>
+    <div class="input-append">
+      <input id="number-of-rounds" type="text" placeholder="1 Round">
+      <button class="btn" id="roll-all-at-once" type="button">Battle</button>
+      <button class="btn btn-danger" id="clear" type="button">clear</button>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">
+      <caption></caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Draws</th>
+          <th>Games</th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+      </tbody>
+    </table>
+  </div>
 
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
