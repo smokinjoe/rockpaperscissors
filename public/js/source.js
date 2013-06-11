@@ -145,7 +145,7 @@ $("#roll-all-at-once").click( function () {
     _n = _n || 1;
     for (var _h = 0; _h < _n; _h += 1) {
       for (var _i = 0; _i < _stuyguys.length; _i += 1) {
-        for (var _j = 0; _j < _stuyguys.length; _j += 1) {
+        for (var _j = _i; _j < _stuyguys.length; _j += 1) {
           if (_i !== _j) {
             doBattle(_stuyguys[_i], _stuyguys[_j]);
           }
@@ -173,8 +173,25 @@ $("#roll-all-at-once").click( function () {
 
   pairUpAndGo(_num_rounds);
 
+  function breakTie(_opp1, _opp2) {
+    var _opp1Wins = 0;
+    var _opp2Wins = 0;
+    for (var _i = 0; _i < _opp1.action_history.length; _i += 1) {
+      if (_opp1.action_history[_i].opponent.name === _opp2.name) {
+        if (_opp1.action_history[_i].result === "win") {
+          _opp1Wins += 1;
+        }
+        else if (_opp1.action_history[_i].result === "loss") {
+          _opp2Wins += 1;
+        }
+      }
+    }
+
+    return _opp2Wins - _opp1Wins;
+  }
+
   _stuyguys.sort(function(a, b) {
-    return (b.wins - a.wins) ? b.wins - a.wins : a.draws - b.draws;
+    return (b.wins - a.wins) ? b.wins - a.wins : ((a.draws - b.draws) ? a.draws-b.draws : breakTie(a, b));
   });
 
   for (var _i = 0; _i < _stuyguys.length; _i += 1) {
@@ -189,5 +206,5 @@ $("#roll-all-at-once").click( function () {
 
   }
 
-  console.log(_stuyguys);
+  //onsole.log(_stuyguys);
 });
