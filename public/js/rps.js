@@ -68,7 +68,7 @@ var arena = (function () {
   // var _sort = function () {};
   var _determineWinner = function () {
     _warriors.sort(function(a, b) {
-      return (b.wins - a.wins) ? b.wins - a.wins : ((a.draws - b.draws) ? a.draws-b.draws : _breakTie(a, b));
+      return (b.wins - a.wins) ? b.wins - a.wins : ((_breakTie(a, b)) ? _breakTie(a, b) : a.draws-b.draws);
     });
   };
   var _doBattle = function (action1, action2) {
@@ -88,11 +88,11 @@ var arena = (function () {
         }
     };
 
-    if (_h == _o) {
+    if (_h === _o) {
         _record.hero.result = 'draw';
         _record.opponent.result = 'draw';
     }
-    else if ((_h - _o + 3) % 3 == 1) {
+    else if ((_h - _o + 3) % 3 === 1) {
         _record.hero.result = 'win';
         _record.opponent.result = 'loss';
     }
