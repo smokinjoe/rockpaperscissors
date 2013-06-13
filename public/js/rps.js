@@ -26,6 +26,7 @@ var Record = function (hero, opp) {
 };
 
 var arena = (function () {
+  var _debug = false;
   var _warriors = {};
   var _action_history = [];
   var _results = {};
@@ -135,6 +136,9 @@ var arena = (function () {
     },
     clearTheDead: function() {
       _action_history = [];
+    },
+    debug: function() {
+      _debug = !_debug;
     }
   };
 });
