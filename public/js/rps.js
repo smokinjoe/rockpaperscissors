@@ -8,46 +8,75 @@ var Stuyguy = function (name) {
   this.action_history = [];
 };
 
-// Constructor for a battle record
-// This requires some thinking, probably hold data as the battle
-// process is running.  Would like some method of keeping things
-// organized by opp object, but it would appear this would have
-// to execute twice per battle, one for each hero
-var Record = function (hero, opp) {
-  this.hero = {};
-  this.hero.name = hero.name;
-  this.hero.action = '';
 
-  this.opponent = {};
-  this.opponent.name = opp.name;
-  this.opponent.action = '';
-
-  this.result = '';
-};
 
 var arena = (function () {
   var _debug = false;
   var _warriors = {};
+  var _array_map = [];
   var _action_history = [];
-  var _results = {};
+  //var _results = {};
   var _actions = {
       'rock' : 0,
       'paper' : 1,
       'scissors' : 2
   };
 
+  Array.prototype.unset = function(value) {
+    if(this.indexOf(value) != -1) { // Make sure the value exists
+      this.splice(this.indexOf(value), 1);
+    }
+  };
+
+  // Constructor for a warrior battle record
+  // This requires some thinking, probably hold data as the battle
+  // process is running.  Would like some method of keeping things
+  // organized by opp object, but it would appear this would have
+  // to execute twice per battle, one for each hero
+  var Warrior_Action_History = function (hero, opp) {
+    this.hero = {};
+    this.hero.name = hero.name;
+    this.hero.action = '';
+
+    this.opponent = {};
+    this.opponent.name = opp.name;
+    this.opponent.action = '';
+
+    this.result = '';
+  };
+
+  var Action_History = function (opp1, opp2) {
+    this.warriors = {};
+    this.warriors[opp1.name] = {};
+    this.warriors[opp1.name].name = opp1.name;
+    this.warriors[opp1.name].action = '';
+    this.warriors[opp1.name].result = '';
+    this.warriors[opp2.name] = {};
+    this.warriors[opp2.name].name = opp2.name;
+    this.warriors[opp2.name].action = '';
+    this.warriors[opp2.name].result = '';
+    this.winner = {};
+    this.loser = {};
+  };
+  Action_History.prototype.declareWinner = function (opp1, opp2) {
+    _determineWinner(opp1, opp2);
+  //  this.winner = this.warriors[warrior.name];
+  //};
+  //Action_History.prototype.declareLoser(warrior) {
+  //  this.loser = this.warriors[warrior.name];
+  };
+
   var _pairUpAndGo = function (n) {
     n = n || 1;
     for (var _h = 0; _h < n; _h += 1) {
-      for (var _i = 0; _i < _stuyguys.length; _i += 1) {
-        for (var _j = _i; _j < _stuyguys.length; _j += 1) {
+      for (var _i = 0; _i < _warriors.length; _i += 1) {
+        for (var _j = _i; _j < _warriors.length; _j += 1) {
           if (_i !== _j) {
-            // do battle
+            _enterTheArena(_warriors.)
           }
         }
       }
     }
-
   };
   // USES action_history - which ain't good
   var _breakTie = function (opp1, opp2) {
@@ -67,11 +96,14 @@ var arena = (function () {
     return _opp2Wins - _opp1Wins;
   };
   // var _sort = function () {};
-  var _determineWinner = function () {
+  var _determineWinner = function (opp1, opp2) {
+
+  };
+  var _sortWarriors = function () {
     _warriors.sort(function(a, b) {
       return (b.wins - a.wins) ? b.wins - a.wins : ((_breakTie(a, b)) ? _breakTie(a, b) : a.draws-b.draws);
     });
-  };
+  }
   var _doBattle = function (action1, action2) {
     // progress: http://jsfiddle.net/smokinjoe/hq663/8/
 
@@ -110,17 +142,25 @@ var arena = (function () {
     injectWarrior: function(warrior) {
       warrior = (typeof warrior === "string") ? new Stuyguy(warrior) : warrior;
       _warriors[warrior.name] = warrior;
+      _array_map.push(_warriors[warrior.name]);
     },
     removeWarrior: function(warrior) {
+      for (var _i = 0; _i < _array_map.length; _i += 1) {
+        if (_array_map[_i] === warrior) {
+          _array_map.unset(_i);
+        }
+      }
       _warriors[warrior.name] = undefined;
     },
     injectWarriors: function(warriorArray) {
       for (var i = 0; i < warriorArray.length; i += 1) {
         _warriors[warriorArray[i].name] = warriorArray[i];
+        _array_map.push(_warriors[warriorArray[i].name]);
       }
     },
     clearWarriors: function() {
       _warriors = {};
+      _array_map = [];
     },
     battle: function(n) {
       _pairUpAndGo(n);
