@@ -145,11 +145,7 @@ var arena = (function () {
       _array_map.push(_warriors[warrior.name]);
     },
     removeWarrior: function(warrior) {
-      for (var _i = 0; _i < _array_map.length; _i += 1) {
-        if (_array_map[_i] === warrior) {
-          _array_map.unset(_i);
-        }
-      }
+      _array_map.unset(warrior);
       _warriors[warrior.name] = undefined;
     },
     injectWarriors: function(warriorArray) {
