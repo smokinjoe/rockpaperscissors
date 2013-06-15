@@ -8,14 +8,11 @@ var Stuyguy = function (name) {
   this.action_history = [];
 };
 
-
-
 var arena = (function () {
   var _debug = false;
   var _warriors = {};
   var _array_map = [];
   var _action_history = [];
-  //var _results = {};
   var _actions = {
       'rock' : 0,
       'paper' : 1,
@@ -59,11 +56,10 @@ var arena = (function () {
     this.loser = {};
   };
   Action_History.prototype.declareWinner = function (opp1, opp2) {
-    _determineWinner(opp1, opp2);
-  //  this.winner = this.warriors[warrior.name];
-  //};
-  //Action_History.prototype.declareLoser(warrior) {
-  //  this.loser = this.warriors[warrior.name];
+    this.winner = this.warriors[warrior.name];
+  };
+  Action_History.prototype.declareLoser(warrior) {
+    this.loser = this.warriors[warrior.name];
   };
 
   var _pairUpAndGo = function (n) {
@@ -72,7 +68,7 @@ var arena = (function () {
       for (var _i = 0; _i < _warriors.length; _i += 1) {
         for (var _j = _i; _j < _warriors.length; _j += 1) {
           if (_i !== _j) {
-            _enterTheArena(_warriors.)
+            _enterTheArena(_array_map[_i], _array_map[_j]);
           }
         }
       }
