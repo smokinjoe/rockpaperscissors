@@ -75,6 +75,11 @@ app.configure('development', function () {
 
 app.locals.inspect = require('util').inspect;
 app.get('/', routes.index);
+app.get('/test', function (req, res) {
+  var template_engine = req.app.settings.template_engine;
+  res.locals.session = req.session;
+  res.render('test', { title: 'Express with ' + template_engine });
+});
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log("Express server listening on port " + app.get('port'));
